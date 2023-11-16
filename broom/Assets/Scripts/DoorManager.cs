@@ -11,6 +11,12 @@ public class DoorManager : MonoBehaviour // This script should be on the Door Tr
 
     public AudioSource DoorOpenSound;
 
+    private Vector2 inputAxisLeft;
+    private Vector2 inputAxisRight;
+
+    public XRNode inputSourceLeft;
+    public XRNode inputSourceRight;
+
     private void OnMouseOver() // Activates when the player looks away from the door
     {
 
@@ -19,9 +25,12 @@ public class DoorManager : MonoBehaviour // This script should be on the Door Tr
 
             //CursorHover.SetActive(true);
 
+        InputDevice deviceLeft = InputDevices.GetDeviceAtXRNode(inputSourceLeft);
+        InputDevice deviceRight = InputDevices.GetDeviceAtXRNode(inputSourceRight);
+        deviceLeft.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxisLeft);
+        deviceRight.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxisRight);
 
-
-            if (InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonBPressed) && isButtonBPressed) // If the player presses E..
+            if (deviceRight.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.5f) // If the player presses E..
             {
 
                 GetComponent<BoxCollider>().enabled = false; // Turns off the player's ability to open the door again even though it's already open
