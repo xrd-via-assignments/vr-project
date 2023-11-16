@@ -11,21 +11,21 @@ public class ContinuousMovement : MonoBehaviour
     public XRNode inputSourceRight;
 
     public AudioClip[] footstepSounds;
-    public float soundVolume = 1.0f;
+    public float soundVolume = 3.0f;
     private AudioSource audioSource;
 
     public float speed;
     public float normalSpeed = 1;
     public float sprintSpeed = 3;
 
-     public float rotationSpeed = 45f;
+    public float rotationSpeed = 45f;
 
     private XROrigin rig;
     private Vector2 inputAxisLeft;
     private Vector2 inputAxisRight;
     private CharacterController character;
 
-     // Sprint button configuration
+    // Sprint button configuration
     // public Button sprintButton = OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger);
 
     // Start is called before the first frame update
@@ -50,12 +50,11 @@ public class ContinuousMovement : MonoBehaviour
         if (deviceLeft.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.5f)
         {
             speed = sprintSpeed;
-            PlayFootstepSound();
+            PlayWalkingFootstepSound();
         }
         else
         {
             speed = normalSpeed;
-            PlayFootstepSound();
         }
     }
 
@@ -74,7 +73,7 @@ public class ContinuousMovement : MonoBehaviour
         transform.Rotate(Vector3.up, rotationAmount);
     }
 
-       private void PlayFootstepSound()
+    private void PlayWalkingFootstepSound()
     {
         if (footstepSounds.Length > 0 && !audioSource.isPlaying)
         {
