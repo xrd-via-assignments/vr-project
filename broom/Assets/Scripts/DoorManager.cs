@@ -1,7 +1,7 @@
 // Coded by Developer Jake -- https://www.youtube.com/developerjake
 // Follow the Backrooms Game Lab (Part 6) to understand what this is for
-
 using UnityEngine;
+using UnityEngine.XR;
 
 public class DoorManager : MonoBehaviour // This script should be on the Door Trigger
 {
@@ -14,14 +14,14 @@ public class DoorManager : MonoBehaviour // This script should be on the Door Tr
     private void OnMouseOver() // Activates when the player looks away from the door
     {
 
-        if ( PlayerCasting.DistanceFromTarget < 4 ) // If the player IS close enough to the door..
+        if (PlayerCasting.DistanceFromTarget < 4) // If the player IS close enough to the door..
         {
 
-            CursorHover.SetActive(true);
+            //CursorHover.SetActive(true);
 
 
 
-            if (Input.GetKeyDown(KeyCode.E)) // If the player presses E..
+            if (InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonBPressed) && isButtonBPressed) // If the player presses E..
             {
 
                 GetComponent<BoxCollider>().enabled = false; // Turns off the player's ability to open the door again even though it's already open
@@ -34,12 +34,12 @@ public class DoorManager : MonoBehaviour // This script should be on the Door Tr
 
         }
 
-        else // If the player is NOT close enough to the door
-        {
+        /*         else // If the player is NOT close enough to the door
+                {
 
-            CursorHover.SetActive(false);
+                    CursorHover.SetActive(false);
 
-        }
+                } */
     }
 
 
