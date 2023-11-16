@@ -10,6 +10,10 @@ public class ContinuousMovement : MonoBehaviour
     public XRNode inputSourceLeft;
     public XRNode inputSourceRight;
 
+    public AudioClip[] footstepSounds;
+    public float soundVolume = 1.0f;
+    private AudioSource audioSource;
+
     public float speed;
     public float normalSpeed = 1;
     public float sprintSpeed = 3;
@@ -29,6 +33,8 @@ public class ContinuousMovement : MonoBehaviour
     {
         character = GetComponent<CharacterController>();
         rig = GetComponent<XROrigin>();
+        audioSource = GetComponentInChildren<AudioSource>();
+        audioSource.volume = soundVolume;
     }
 
     // Update is called once per frame
@@ -44,10 +50,12 @@ public class ContinuousMovement : MonoBehaviour
         if (deviceLeft.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.5f)
         {
             speed = sprintSpeed;
+            PlayFootstepSound();
         }
         else
         {
             speed = normalSpeed;
+            PlayFootstepSound();
         }
     }
 
@@ -64,5 +72,14 @@ public class ContinuousMovement : MonoBehaviour
         // Rotation
         float rotationAmount = inputAxisRight.x * rotationSpeed * Time.fixedDeltaTime;
         transform.Rotate(Vector3.up, rotationAmount);
+    }
+
+       private void PlayFootstepSound()
+    {
+        if (footstepSounds.Length > 0 && !audioSource.isPlaying)
+        {
+            AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+            audioSource.PlayOneShot(footstepSound, soundVolume);
+        }
     }
 }
