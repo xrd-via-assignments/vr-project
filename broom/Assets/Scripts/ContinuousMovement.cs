@@ -46,15 +46,24 @@ public class ContinuousMovement : MonoBehaviour
         deviceLeft.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxisLeft);
         deviceRight.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxisRight);
 
+
+        // For primary button (just in case)
+        // if (deviceLeft.TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonPressed) && isButtonPressed)
+
         // Check for sprint trigger input
         if (deviceLeft.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.5f)
         {
             speed = sprintSpeed;
-            PlayWalkingFootstepSound();
+
+            if (deviceLeft.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxisLeft) && (inputAxisLeft != Vector2.zero))
+            {
+                PlayRunningFootstepSound();
+            }
         }
         else
         {
             speed = normalSpeed;
+            // PlayWalkingFootstepSound();
         }
     }
 
@@ -73,12 +82,33 @@ public class ContinuousMovement : MonoBehaviour
         transform.Rotate(Vector3.up, rotationAmount);
     }
 
+    private void PlayRunningFootstepSound()
+    {
+        if (footstepSounds.Length > 0 && !audioSource.isPlaying)
+        {
+            AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+
+            // Increase the pitch to make the sound play faster
+            float pitch = Random.Range(1.2f, 2.0f); // Adjust the range as needed
+            audioSource.pitch = pitch;
+
+            audioSource.PlayOneShot(footstepSound, soundVolume);
+        }
+    }
+
     private void PlayWalkingFootstepSound()
     {
         if (footstepSounds.Length > 0 && !audioSource.isPlaying)
         {
             AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+
+            // Increase the pitch to make the sound play faster
+            float pitch = Random.Range(0.8f, 1.2f); // Adjust the range as needed
+            audioSource.pitch = pitch;
+
             audioSource.PlayOneShot(footstepSound, soundVolume);
         }
     }
+
+
 }
