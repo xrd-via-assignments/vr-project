@@ -6,12 +6,11 @@ using UnityEngine;
 public class KeyDoor : MonoBehaviour // This script should be on the Locked Door Trigger
 {
     [Header("Attributes")]
-   
+
     [Tooltip("The name of the key that is required.")] public string keyName = "";
 
     [Header("References")]
 
-    public GameObject CursorHover; // The hover cursor that should show when the player is looking at the door
 
     public Animation Door;
 
@@ -19,55 +18,40 @@ public class KeyDoor : MonoBehaviour // This script should be on the Locked Door
 
     private KeyManager km;
 
+    private bool hasDoorBeenOpened = false;
+
     private void Start()
     {
         km = FindObjectOfType<KeyManager>(); // Assign
     }
 
-    private void OnMouseOver() // Activates when the player looks at the door
+    private void Update()
     {
 
-        if ( PlayerCasting.DistanceFromTarget <= 4 ) // If the player IS close enough to the door..
+        if ( PlayerCasting.DistanceFromTarget <= 4 )
         {
-
-            CursorHover.SetActive(true);
-
-
-
-            if (Input.GetKeyDown(KeyCode.E)) // If the player presses E..
+            if (Input.GetKey(KeyCode.JoystickButton0))
             {
-
-                foreach (string key in km.keysInInventory) // Check to see if the player has key
+                if (!hasDoorBeenOpened && !Door.isPlaying)
                 {
-                    if (key.Trim().ToLower() == keyName.Trim().ToLower())
-                    { 
-                        GetComponent<BoxCollider>().enabled = false; // Turns off the player's ability to open the door again even though it's already open
 
-                        Door.Play(); // Play the door open animation
+                    foreach (string key in km.keysInInventory) // Check to see if the player has key
+                    {
+                        if (key.Trim().ToLower() == keyName.Trim().ToLower())
+                        {
+                            GetComponent<BoxCollider>().enabled = false; // Turns off the player's ability to open the door again even though it's already open
 
-                        DoorOpenSound.Play(); // Play the door open sound
+                            Door.Play(); // Play the door open animation
 
-                        km.keysInInventory.Remove(key); // Removes the key from the inventory
+                            DoorOpenSound.Play(); // Play the door open sound
+
+                            km.keysInInventory.Remove(key); // Removes the key from the inventory
+
+                            hasDoorBeenOpened = true; // Set the flag to indicate that the door has been opened
+                        }
                     }
                 }
             }
-
         }
-
-        else // If the player is NOT close enough to the door
-        {
-
-            CursorHover.SetActive(false);
-
-        }
-    }
-
-
-
-    private void OnMouseExit() // Activates when the player looks away from the door
-    {
-
-        CursorHover.SetActive(false);
-
     }
 }
