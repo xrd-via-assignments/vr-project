@@ -15987,8 +15987,8 @@ Transform:
   m_GameObject: {fileID: 1654497237}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.741, y: -0.0743, z: 1.3643}
-  m_LocalScale: {x: 1.5339853, y: 0.25567117, z: 2.7351866}
+  m_LocalPosition: {x: -0.741, y: -0.0511, z: 1.3737}
+  m_LocalScale: {x: 1.5339853, y: 0.4288434, z: 2.7163138}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2756240214775837255}
@@ -16076,11 +16076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8feca0bae8e394bb7e1109fd654f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorHover: {fileID: 0}
   Door: {fileID: 3894220613241522473}
   DoorOpenSound: {fileID: 151160527}
-  inputSourceLeft: 0
-  inputSourceRight: 0
 --- !u!1 &1660801419
 GameObject:
   m_ObjectHideFlags: 0
