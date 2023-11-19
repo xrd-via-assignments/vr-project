@@ -14,7 +14,7 @@ public class Key : MonoBehaviour
 
     public void Update()
     {
-        if (PlayerCasting.DistanceFromTarget <= 5) // Is the player in range?
+        if (PlayerCasting.DistanceFromTarget <= 2) // Is the player in range?
         {
 
             if (Input.GetKey(KeyCode.JoystickButton0))
