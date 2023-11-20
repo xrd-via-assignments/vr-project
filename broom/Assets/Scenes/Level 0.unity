@@ -6046,8 +6046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyName: blue key
-  Door: {fileID: 1942872418}
-  DoorOpenSound: {fileID: 151160527}
+  door: {fileID: 1942872418}
+  doorOpenSound: {fileID: 151160527}
 --- !u!65 &679005326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16612,8 +16612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8feca0bae8e394bb7e1109fd654f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 3894220613241522473}
-  DoorOpenSound: {fileID: 151160527}
+  door: {fileID: 3894220613241522473}
+  doorOpenSound: {fileID: 151160527}
 --- !u!1 &1660801419
 GameObject:
   m_ObjectHideFlags: 0
@@ -21698,7 +21698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b582139fbf78943a033f8de670feb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToTarget: 0
+  distanceFromTarget: 0
 --- !u!82 &2090831437
 AudioSource:
   m_ObjectHideFlags: 0
