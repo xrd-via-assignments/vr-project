@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerCasting : MonoBehaviour
 {
-    public static float DistanceFromTarget;
-    public float ToTarget;
+    public float distanceFromTarget; // Use an instance variable instead of static
 
     void Update()
     {
-        RaycastHit Hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out Hit))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
-            DistanceFromTarget = Hit.distance;
-            ToTarget = Hit.distance;
+            distanceFromTarget = hit.distance;
         }
     }
 }
