@@ -16,17 +16,18 @@ public class KeyDoor : MonoBehaviour // This script should be on the Locked Door
     PlayerCasting playerCasting;
     GameObject specificObject;
 
+    public AudioSource LockedDoorSound;
+    private bool lockedDoorSoundPlayed;
+
     private void Start()
     {
         km = FindObjectOfType<KeyManager>(); // Assign
-
         playerCasting = FindObjectOfType<PlayerCasting>();
         specificObject = GameObject.Find("doorTriggerLocked"); // Replace this with a reference to your specific object
     }
 
     private void Update()
     {
-        PlayerCasting playerCasting = FindObjectOfType<PlayerCasting>();
         if (playerCasting != null &&
             playerCasting.distanceFromTarget <= 5 &&
             IsLookingAtSpecificObject(playerCasting, specificObject))
@@ -50,20 +51,34 @@ public class KeyDoor : MonoBehaviour // This script should be on the Locked Door
                             hasDoorBeenOpened = true; // Set the flag to indicate that the door has been opened
                         }
                     }
+
+                    if (!hasDoorBeenOpened)
+                    {
+                        if (!lockedDoorSoundPlayed)
+                        {
+                            LockedDoorSound.Play();
+                            lockedDoorSoundPlayed = true;
+                        }
+                    }
                 }
+            }
+            else
+            {
+                // Reset the flag when the player is not interacting
+                lockedDoorSoundPlayed = false;
             }
         }
     }
 
-        bool IsLookingAtSpecificObject(PlayerCasting playerCasting, GameObject specificObject)
-{
-    RaycastHit hit;
-    if (Physics.Raycast(playerCasting.transform.position, playerCasting.transform.TransformDirection(Vector3.forward), out hit))
+    bool IsLookingAtSpecificObject(PlayerCasting playerCasting, GameObject specificObject)
     {
-        // Check if the hit object is the specificObject
-        return hit.collider.gameObject == specificObject;
-    }
+        RaycastHit hit;
+        if (Physics.Raycast(playerCasting.transform.position, playerCasting.transform.TransformDirection(Vector3.forward), out hit))
+        {
+            // Check if the hit object is the specificObject
+            return hit.collider.gameObject == specificObject;
+        }
 
-    return false;
-}
+        return false;
+    }
 }
