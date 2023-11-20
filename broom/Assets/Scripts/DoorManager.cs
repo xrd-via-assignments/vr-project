@@ -2,22 +2,23 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
-    public Animation Door;
-    public AudioSource DoorOpenSound;
+    public Animation door;
+    public AudioSource doorOpenSound;
 
     private bool hasDoorBeenOpened = false;
 
     void Update()
     {
-        if (PlayerCasting.DistanceFromTarget < 4)
+        PlayerCasting playerCasting = FindObjectOfType<PlayerCasting>();
+        if (playerCasting != null && playerCasting.distanceFromTarget <= 5)
         {
             if (Input.GetKey(KeyCode.JoystickButton0))
             {
-                if (!hasDoorBeenOpened && !Door.isPlaying)
+                if (!hasDoorBeenOpened && !door.isPlaying)
                 {
                     GetComponent<BoxCollider>().enabled = false;
-                    Door.Play();
-                    DoorOpenSound.Play();
+                    door.Play();
+                    doorOpenSound.Play();
                     hasDoorBeenOpened = true; // Set the flag to indicate that the door has been opened
                 }
             }
