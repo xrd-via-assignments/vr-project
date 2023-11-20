@@ -29,7 +29,11 @@ public class JumpscareTrigger : MonoBehaviour
         Debug.Log("Mouse is over GameObject.");
 
         // Play the animation
-        jumpscareAnimation.Play();
+        if (jumpscareAnimation != null)
+        {
+            jumpscareAnimation.wrapMode = WrapMode.Once;
+            jumpscareAnimation.Play();
+        }
 
         // If jumpscareAudio exists, play it
         if (jumpscareAudio != null)
