@@ -1,5 +1,6 @@
 Assets used:\
-https://sketchfab.com/3d-models/scp-106-a48391664f534588b0709f0baf5c1cd7
+https://sketchfab.com/3d-models/scp-106-a48391664f534588b0709f0baf5c1cd7 
+\
 https://assetstore.unity.com/packages/3d/characters/scary-man-free-173376
 
 Tutorials & Guides followed:\
