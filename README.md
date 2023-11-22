@@ -1,6 +1,5 @@
 Assets used:\
 https://sketchfab.com/3d-models/scp-106-a48391664f534588b0709f0baf5c1cd7
-\
 
 Tutorials & Guides followed:\
 Environment:\
